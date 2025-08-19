@@ -1,0 +1,4 @@
+code,criticality,name,descr
+O,1,Open,Open
+I,2,In Progress,In Progress
+R,3,Resolved, Resolved

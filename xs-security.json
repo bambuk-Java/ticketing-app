@@ -1,0 +1,20 @@
+{
+  "xsappname": "ticket-app",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.Admin",  "description": "Admin?"  },
+    { "name": "$XSAPPNAME.Viewer", "description": "Viewer?" }
+  ],
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "Administratoren",
+      "scope-references": ["$XSAPPNAME.Admin", "uaa.user"]
+    },
+    {
+      "name": "Viewer",
+      "description": "Nur-Lesen-Benutzer",
+      "scope-references": ["$XSAPPNAME.Viewer", "uaa.user"]
+    }
+  ]
+}
