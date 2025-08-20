@@ -45,9 +45,7 @@ modules:
       builder: custom
       commands:
         - npm ci
-        - npm run build
-        # Zip-Inhalt von dist direkt in tickets.zip packen
-        - powershell -Command "Compress-Archive -Path dist/* -DestinationPath dist/tickets.zip -Force"
+        - npm run build:cf
       supported-platforms: []
       build-artifact-name: tickets.zip
 
