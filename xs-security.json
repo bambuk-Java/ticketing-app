@@ -15,6 +15,11 @@
       "name": "Viewer",
       "description": "Nur-Lesen-Benutzer",
       "scope-references": ["$XSAPPNAME.Viewer", "uaa.user"]
+    },
+    {
+      "name": "Supporter",
+      "description": "Kann auf Tickets antworten, diese aber nicht Löschen oder bearbeiten",
+      "scope-references": ["$XSAPPNAME.Supporter", "uaa.user"]
     }
   ]
 }

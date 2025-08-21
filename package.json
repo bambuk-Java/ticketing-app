@@ -32,18 +32,22 @@
         "auth": {
           "kind": "mocked",
           "users": {
-            "ben": {
-              "password": "dover",
-              "roles": [
-                "Admin"
-              ]
-            },
-            "fixi": {
-              "password": "hartmann",
+            "garmin": {
               "roles": [
                 "Viewer"
               ]
+            },
+            "sahur": {
+              "roles": [
+                "Viewer"
+              ]
+            },
+            "chicken":{
+              "roles": [
+                "Supporter"
+              ]
             }
+
           }
         }
       }

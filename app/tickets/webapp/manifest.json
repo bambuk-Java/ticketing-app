@@ -51,7 +51,7 @@
       "phone": "",
       "phone@2": "",
       "tablet": "",
-      "tablet@2": ""
+      "tablet@2": ""      
     },
     "deviceTypes": {
       "desktop": true,
@@ -67,7 +67,12 @@
         "sap.m": {},
         "sap.ui.core": {},
         "sap.fe.templates": {}
+      },
+      "controllerExtensions": {
+      "sap.fe.templates.ListReport.ListReport": {
+        "controllerName": "my.app.ext.ListReportExt"
       }
+    }
     },
     "contentDensities": {
       "compact": true,

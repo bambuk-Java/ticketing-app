@@ -11,8 +11,8 @@ service ProcessorService {
 
     @odata.draft.enabled
     @restrict: [
-        { grant: 'READ', to: ['Viewer','Admin'] },
-        { grant: ['CREATE','UPDATE', DELETE], to: ['Admin'] }
+        { grant: ['READ', 'CREATE'], to: ['Viewer','Admin'] },
+        { grant: ['CREATE','UPDATE', 'DELETE'], to: 'Admin' }
     ]
     entity Tickets as projection on my.Tickets {
         ID,
