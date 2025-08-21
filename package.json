@@ -34,7 +34,7 @@
           "users": {
             "garmin": {
               "roles": [
-                "Viewer"
+                "Admin"
               ]
             },
             "sahur": {

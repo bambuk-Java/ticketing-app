@@ -14,13 +14,15 @@ service ProcessorService {
         { grant: ['READ', 'CREATE'], to: ['Viewer','Admin'] },
         { grant: ['CREATE','UPDATE', 'DELETE'], to: 'Admin' }
     ]
+    @Capabilities.DeleteRestrictions.Deletable: { $Path: 'IsDeleteable' }
     entity Tickets as projection on my.Tickets {
         ID,
         title,
         status,
         description,
         answers,
-        user
+        user,
+        virtual IsDeleteable : Boolean
     };
 
     @readonly
