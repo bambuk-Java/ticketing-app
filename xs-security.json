@@ -3,7 +3,8 @@
   "tenant-mode": "dedicated",
   "scopes": [
     { "name": "$XSAPPNAME.Admin",  "description": "Admin?"  },
-    { "name": "$XSAPPNAME.Viewer", "description": "Viewer?" }
+    { "name": "$XSAPPNAME.Viewer", "description": "Viewer?" },
+    { "name": "$XSAPPNAME.Supporter", "description": "Supporter?" }
   ],
   "role-templates": [
     {

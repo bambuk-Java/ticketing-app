@@ -26,7 +26,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "odata/v4/processor/",
+        "uri": "/odata/v4/processor/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -72,6 +72,11 @@
         "sap.m": {},
         "sap.ui.core": {},
         "sap.fe.templates": {}
+      },
+      "controllerExtensions": {
+        "sap.fe.templates.ListReport.ListReport": {
+          "controllerName": "my.app.ext.ListReportExt"
+        }
       }
     },
     "contentDensities": {

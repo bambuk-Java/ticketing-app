@@ -1,145 +1,224 @@
-using ProcessorService as service from '../../srv/services';
+using SupportAdminService as SupportAdminService from '../../srv/services';
+using ViewerService as ViewerService from '../../srv/services';
 using from '../../db/schema';
 
-annotate service.Tickets with @(
-    UI.FieldGroup #GeneratedGroup : {
-        $Type : 'UI.FieldGroupType',
+// --------------------
+// Tickets (Detail + List) -> nur Admin/Supporter
+
+// --------------------
+annotate SupportAdminService.Tickets with @(
+
+    // ---- Detailansicht (Object Page) ----
+    UI.FieldGroup #GeneratedGroup: {
+        $Type: 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
-                Value : title,
+                Label : 'User',
+                Value : user.userName
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'status_code',
-                Value : status_code,
+                Value : title
             },
             {
                 $Type : 'UI.DataField',
-                Label : '{i18n>Description1}',
-                Value : description,
+                Label : '{i18n>Status}',
+                Value : status
             },
-        ],
+            {
+                $Type : 'UI.DataField',
+                Label : '{i18n>Description}',
+                Value : description
+            }
+        ]
     },
-    UI.Facets : [
+
+    UI.Facets: [
         {
             $Type : 'UI.ReferenceFacet',
-            ID : 'GeneratedFacet1',
+            ID    : 'GeneralInformation',
             Label : '{i18n>GeneralInformation}',
-            Target : '@UI.FieldGroup#GeneratedGroup',
+            Target: '@UI.FieldGroup#GeneratedGroup'
         },
         {
             $Type : 'UI.ReferenceFacet',
+            ID    : 'AnswersFacet',
             Label : '{i18n>Answers}',
-            ID : 'i18nAnswers',
-            Target : 'answers/@UI.LineItem#i18nAnswers',
-        },
+            Target: 'answers/@UI.LineItem#i18nAnswers'
+        }
     ],
-    UI.LineItem : [
+
+    // ---- Listenansicht (Worklist/Table) ----
+    UI.LineItem: [
+        {
+            $Type : 'UI.DataField',
+            Label : '{i18n>User}',
+            Value : user.userName,
+            ![@HTML5.CssDefaults]: {width: '25%'}
+        },
         {
             $Type : 'UI.DataField',
             Value : title,
             Label : '{i18n>Title}',
-            ![@HTML5.CssDefaults]: {
-                width: '33.33%'
-            }
+            ![@HTML5.CssDefaults]: {width: '25%'}
         },
         {
             $Type : 'UI.DataField',
-            Label : '{i18n>Statuscode}',
-            Value : status_code,
-            ![@HTML5.CssDefaults]: {
-                width: '33.33%'
-            }
+            Label : '{i18n>Status}',
+            Value : status,
+            ![@HTML5.CssDefaults]: {width: '25%'}
         },
         {
             $Type : 'UI.DataField',
-            Label : 'description',
+            Label : '{i18n>Description}',
             Value : description,
-            ![@HTML5.CssDefaults]: {
-                width: '33.33%'
-            }
-        },
+            ![@HTML5.CssDefaults]: {width: '25%'}
+        }
     ],
-    UI.SelectionFields : [
-        status_code,
-    ],
-    UI.HeaderInfo : {
-        Title : {
-            $Type : 'UI.DataField',
-            Value : title,
+
+    // ---- Filterfelder ----
+    UI.SelectionFields: [ status ],
+
+    // ---- Header-Info ----
+    UI.HeaderInfo: {
+        Title: {
+            $Type: 'UI.DataField',
+            Value: title
         },
-        TypeName : '',
-        TypeNamePlural : '',
-        Description : {
-            $Type : 'UI.DataField',
-            Value : user.userName,
-        },
+        TypeName      : '',
+        TypeNamePlural: '',
+        Description   : {
+            $Type: 'UI.DataField',
+            Value: user.userName
+        }
     },
-    UI.FieldGroup #Details : {
-        $Type : 'UI.FieldGroupType',
-        Data : [
-        ],
-    },
+
+    UI.FieldGroup #Details: {
+        $Type: 'UI.FieldGroupType',
+        Data : []
+    }
 );
 
-annotate service.Tickets with {
-    user @Common.ValueList : {
-        $Type : 'Common.ValueListType',
-        CollectionPath : 'Users',
-        Parameters : [
+// ---- Value Help für User -> nur für Admin/Supporter ----
+annotate SupportAdminService.Tickets with {
+    user @Common.ValueList: {
+        $Type         : 'Common.ValueListType',
+        CollectionPath: 'Users',
+        Parameters    : [
             {
-                $Type : 'Common.ValueListParameterInOut',
-                LocalDataProperty : user_ID,
-                ValueListProperty : 'ID',
+                $Type            : 'Common.ValueListParameterInOut',
+                LocalDataProperty: user_ID,
+                ValueListProperty: 'ID'
             },
             {
-                $Type : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty : 'userName',
+                $Type            : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty: 'userName'
             },
             {
-                $Type : 'Common.ValueListParameterDisplayOnly',
-                ValueListProperty : 'email',
-            },
-        ],
+                $Type            : 'Common.ValueListParameterDisplayOnly',
+                ValueListProperty: 'email'
+            }
+        ]
     }
 };
 
-annotate service.Tickets with {
+// ---- Status Feld ----
+annotate SupportAdminService.Tickets with {
     status @(
-        Common.Label : '{i18n>Statuscode}',
-        Common.ValueListWithFixedValues : true,
+        Common.Label                   : '{i18n>Status}',
+        Common.ValueListWithFixedValues: true
     )
 };
 
-annotate service.Status with {
-    code @Common.Text : descr
+// --------------------
+// MyTickets (Viewer Sicht)
+// --------------------
+annotate ViewerService.MyTickets with @(
+
+    UI.LineItem: [
+        {
+            $Type : 'UI.DataField',
+            Value : title,
+            Label : '{i18n>Title}',
+            ![@HTML5.CssDefaults]: {width: '40%'}
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : '{i18n>Status}',
+            Value : status,
+            ![@HTML5.CssDefaults]: {width: '20%'}
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : '{i18n>Description}',
+            Value : description,
+            ![@HTML5.CssDefaults]: {width: '40%'}
+        }
+    ],
+
+    UI.SelectionFields: [ status ],
+
+    UI.HeaderInfo: {
+        Title: {
+            $Type: 'UI.DataField',
+            Value: title
+        },
+        Description: {
+            $Type: 'UI.DataField',
+            Value: createdBy
+        }
+    }
+);
+
+// ---- Status für beide Services ----
+annotate SupportAdminService.Status with {
+    code @Common.Text: descr
+};
+annotate ViewerService.Status with {
+    code @Common.Text: descr
 };
 
-annotate service.Answers with @(
-    UI.LineItem #i18nAnswers : [
+// --------------------
+// Answers (Tabelle im Ticket) für beide
+// --------------------
+annotate SupportAdminService.Answers with @(
+    UI.LineItem #i18nAnswers: [
         {
             $Type : 'UI.DataField',
             Value : author,
-            ![@HTML5.CssDefaults]: {
-                width: '33.33%'
-            }
+            ![@HTML5.CssDefaults]: {width: '33.33%'}
         },
         {
             $Type : 'UI.DataField',
             Value : createdAt,
-            ![@HTML5.CssDefaults]: {
-                width: '33.33%'
-            }
+            ![@HTML5.CssDefaults]: {width: '33.33%'}
         },
         {
             $Type : 'UI.DataField',
+            Label : '{i18n>Message}',
             Value : message,
-            Label : 'message',
-            ![@HTML5.CssDefaults]: {
-                width: '33.33%'
-            }
-        },
+            ![@HTML5.CssDefaults]: {width: '33.33%'}
+        }
     ]
 );
-
+annotate ViewerService.Answers with @(
+    UI.LineItem #i18nAnswers: [
+        {
+            $Type : 'UI.DataField',
+            Value : author,
+            ![@HTML5.CssDefaults]: {width: '33.33%'}
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : createdAt,
+            ![@HTML5.CssDefaults]: {width: '33.33%'}
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : '{i18n>Message}',
+            Value : message,
+            ![@HTML5.CssDefaults]: {width: '33.33%'}
+        }
+    ]
+);
