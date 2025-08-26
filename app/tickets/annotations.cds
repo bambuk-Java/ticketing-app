@@ -38,8 +38,8 @@ annotate service.Tickets with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Value : createdBy,
-            Label : '{i18n>User Name}',
+            Value : ID,
+            Label : '{i18n>TicketID}',
             ![@HTML5.CssDefaults]: {
                 width: '25%'
             }
@@ -81,7 +81,7 @@ annotate service.Tickets with @(
         TypeNamePlural : '',
         Description : {
             $Type : 'UI.DataField',
-            Value : createdBy,
+            Value : ID,
         },
     },
     UI.FieldGroup #Details : {

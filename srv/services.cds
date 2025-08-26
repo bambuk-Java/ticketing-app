@@ -15,13 +15,13 @@ service ProcessorService {
         { grant: ['READ','CREATE','UPDATE', 'DELETE'], to: 'Admin' }
     ]
     entity Tickets as projection on my.Tickets {
-        ID,
+        ID @(restrict.to: ['Admin','Supporter']),
         title,
         status,
         description,
         answers,
         user @(restrict.to: ['Admin','Supporter']),
-        createdBy
+        createdBy @(restrict.to: ['Admin','Supporter'])
     };
     @readonly
     entity Status as projection on my.Status;
