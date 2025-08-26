@@ -2,7 +2,7 @@ using { cuid, managed, sap.common.CodeList } from '@sap/cds/common';
 namespace ticketing.app.demo;
 
 entity Tickets : cuid, managed {
-  user        : Association to Users @restrict.to: ['Admin', 'Supporter'];
+  user        : Association to Users;
   title       : String @title: 'Title' @mandatory;
   status      : Association to Status @mandatory default 'Open';
   timestamp   : type of managed:createdAt @cds.on.insert: $now;

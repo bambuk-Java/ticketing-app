@@ -3,52 +3,34 @@ using {ticketing.app.demo as my} from '../db/schema';
 /**
  * Service used by personnel 'processors'
  */
-@requires: ['Admin', 'Supporter']
-service SupportAdminService {    
+@requires: 'authenticated-user'
+service ProcessorService {
+
     @readonly
     entity Users as projection on my.Users;
 
-    @odata.draft.enable
-    @cds.redirection.target
+    @odata.draft.enabled
     @restrict: [
-        {grant: ['READ', 'UPDATE'], to: 'Supporter'},
-        {grant: ['CREATE', 'READ', 'UPDATE', 'DELETE'], to: 'Admin'}
+        //{ grant: ['READ', 'CREATE'], to: 'Viewer', where: 'createdBy = $user' },
+        { grant: ['READ', 'CREATE'], to: 'Viewer',},
+        { grant: ['READ','CREATE','UPDATE', 'DELETE'], to: 'Admin' }
     ]
-
-    entity Tickets as projection on my.Tickets  {
+    entity Tickets as projection on my.Tickets {
         ID,
         title,
         status,
         description,
         answers,
+        @restrict: [{ grant: [], to: 'Viewer'}]
         user,
         createdBy
     };
     @readonly
     entity Status as projection on my.Status;
-    @restrict: [
-        { grant: ['CREATE','READ', 'UPDATE', 'DELETE'], to:[ 'Admin', 'Supporter']}
-    ]
-    entity Answers as projection on my.Answers;
-}
-
-service ViewerService{
-@requires : 'Viewer'
-    @restrict: [
-        { grant: ['CREATE','READ','UPDATE','DELETE'], to: 'Viewer', where: 'createdBy = $user' },
-    ]
-    entity MyTickets as projection on my.Tickets{
-        ID,
-        title,
-        status,
-        description,
-        answers,
-        createdBy
-    }
 
     @restrict: [
-        { grant: ['READ'], to: 'Viewer'}
+        { grant: 'READ', to: ['Viewer','Admin'] },
+        { grant: ['CREATE','UPDATE'], to: ['Admin'] }
     ]
     entity Answers as projection on my.Answers;
-    
 }
