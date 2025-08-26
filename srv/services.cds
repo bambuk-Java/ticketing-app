@@ -6,13 +6,12 @@ using {ticketing.app.demo as my} from '../db/schema';
 @requires: 'authenticated-user'
 service ProcessorService {
 
-    @readonly
+    @restrict: [{grant: ['READ'], to: ['Admin', 'Support']}]
     entity Users as projection on my.Users;
 
     @odata.draft.enabled
     @restrict: [
-        //{ grant: ['READ', 'CREATE'], to: 'Viewer', where: 'createdBy = $user' },
-        { grant: ['READ', 'CREATE'], to: 'Viewer',},
+        { grant: ['READ', 'CREATE'], to: 'Viewer', where: 'createdBy = $user' },
         { grant: ['READ','CREATE','UPDATE', 'DELETE'], to: 'Admin' }
     ]
     entity Tickets as projection on my.Tickets {
@@ -21,8 +20,7 @@ service ProcessorService {
         status,
         description,
         answers,
-        @restrict: [{ grant: [], to: 'Viewer'}]
-        user,
+        user @(restrict.to: ['Admin','Supporter']),
         createdBy
     };
     @readonly

@@ -4,7 +4,7 @@ namespace ticketing.app.demo;
 entity Tickets : cuid, managed {
   user        : Association to Users;
   title       : String @title: 'Title' @mandatory;
-  status      : Association to Status @mandatory default 'Open';
+  status      : Association to Status @mandatory default 'O';
   timestamp   : type of managed:createdAt @cds.on.insert: $now;
   description : String @mandatory;
   answers     : Composition of many Answers on answers.ticket = $self;
