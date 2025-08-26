@@ -6,26 +6,32 @@ using {ticketing.app.demo as my} from '../db/schema';
 @requires: 'authenticated-user'
 service ProcessorService {
 
-    @restrict: [{grant: ['READ'], to: ['Admin', 'Support']}]
+    @restrict: [{grant: ['READ'], to: ['Admin', 'Supporter']}]
     entity Users as projection on my.Users;
 
     @odata.draft.enabled
+    @cds.redirection.target
     @restrict: [
-        { grant: ['READ', 'CREATE'], to: 'Viewer', where: 'createdBy = $user' },
-        { grant: ['READ','CREATE','UPDATE', 'DELETE'], to: 'Admin' }
+        { grant: ['READ','CREATE','UPDATE','DELETE'], to: ['Admin','Supporter'] }
     ]
-    entity Tickets as projection on my.Tickets {
-        ID @(restrict.to: ['Admin','Supporter']),
+    entity TicketsAdm as projection on my.Tickets;
+
+    @restrict: [
+        { grant: ['READ','CREATE'], to: 'Viewer', where: 'createdBy = $user' }
+    ]
+    entity TicketsViewer as projection on my.Tickets {
+        ID,
         title,
-        status,
         description,
-        answers,
-        user @(restrict.to: ['Admin','Supporter']),
-        createdBy @(restrict.to: ['Admin','Supporter'])
+        createdBy,
+        createdAt
+        // Erstmal nur die einfachsten Felder - keine Associations
     };
+
     @readonly
     entity Status as projection on my.Status;
 
+    @cds.redirection.target
     @restrict: [
         { grant: 'READ', to: ['Viewer','Admin'] },
         { grant: ['CREATE','UPDATE'], to: ['Admin'] }
