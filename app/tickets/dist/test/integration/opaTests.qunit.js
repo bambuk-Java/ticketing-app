@@ -1,2 +1,0 @@
-sap.ui.require(["sap/fe/test/JourneyRunner","ns/tickets/test/integration/FirstJourney","ns/tickets/test/integration/pages/TicketsList","ns/tickets/test/integration/pages/TicketsObjectPage"],function(t,e,s,i){"use strict";var t=new t({launchUrl:sap.ui.require.toUrl("ns/tickets")+"/index.html"});t.run({pages:{onTheTicketsList:s,onTheTicketsObjectPage:i}},e.run)});
-//# sourceMappingURL=opaTests.qunit.js.map
