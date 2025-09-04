@@ -12,10 +12,6 @@
     "applicationVersion": {
       "version": "0.0.1"
     },
-    "sap.cloud": {
-      "public": true,
-      "service": "ticketing.service"
-    },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
     "resources": "resources.json",
@@ -173,5 +169,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "ticketing.service"
   }
 }

@@ -7,11 +7,12 @@ annotate service.Tickets with @(
         Data : [
             {
                 $Type : 'UI.DataField',
+                Label: Title,
                 Value : title,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'status_code',
+                Label : 'Status code',
                 Value : status_code,
             },
             {
@@ -39,9 +40,9 @@ annotate service.Tickets with @(
         {
             $Type : 'UI.DataField',
             Value : ID,
-            Label : '{i18n>TicketID}',
+            Label : '{i18n>Ticket ID}',
             ![@HTML5.CssDefaults]: {
-                width: '25%'
+                width: '30%'
             }
         },
         {
@@ -49,23 +50,23 @@ annotate service.Tickets with @(
             Value : title,
             Label : '{i18n>Title}',
             ![@HTML5.CssDefaults]: {
-                width: '25%'
+                width: '30%'
             }
         },
         {
             $Type : 'UI.DataField',
-            Label : '{i18n>Statuscode}',
-            Value : status_code,
-            ![@HTML5.CssDefaults]: {
-                width: '25%'
-            }
-        },
-        {
-            $Type : 'UI.DataField',
-            Label : 'description',
+            Label : 'Description',
             Value : description,
             ![@HTML5.CssDefaults]: {
-                width: '25%'
+                width: '30%'
+            }
+        },
+        {
+            $Type : 'UI.DataField',
+            Label : '{i18n>Status code}',
+            Value : status_code,
+            ![@HTML5.CssDefaults]: {
+                width: '10%'
             }
         },
     ],
@@ -84,7 +85,7 @@ annotate service.Tickets with @(
             Value : ID,
         },
     },
-    UI.FieldGroup #Details : {
+    UI.FieldGroup : {
         $Type : 'UI.FieldGroupType',
         Data : [
         ],
@@ -115,7 +116,7 @@ annotate service.Tickets with {
 
 annotate service.Tickets with {
     status @(
-        Common.Label : '{i18n>Statuscode}',
+        Common.Label : '{i18n>Status code}',
         Common.ValueListWithFixedValues : true,
     )
 };
@@ -130,14 +131,7 @@ annotate service.Answers with @(
             $Type : 'UI.DataField',
             Value : author,
             ![@HTML5.CssDefaults]: {
-                width: '33.33%'
-            }
-        },
-        {
-            $Type : 'UI.DataField',
-            Value : createdAt,
-            ![@HTML5.CssDefaults]: {
-                width: '33.33%'
+                width: '10%'
             }
         },
         {
@@ -145,7 +139,14 @@ annotate service.Answers with @(
             Value : message,
             Label : 'message',
             ![@HTML5.CssDefaults]: {
-                width: '33.33%'
+                width: '75%'
+            }
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : createdAt,
+            ![@HTML5.CssDefaults]: {
+                width: '15%'
             }
         },
     ]

@@ -7,10 +7,6 @@
     "applicationVersion": {
       "version": "0.0.1"
     },
-    "sap.cloud": {
-      "public": true,
-      "service": "ticketing.service"
-    },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
     "resources": "resources.json",
@@ -21,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4",
+        "uri": "/odata/v4/processor/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -160,5 +156,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
-  }
+  },
+    "sap.cloud": {
+      "public": true,
+      "service": "ticketing.service"
+    }
 }

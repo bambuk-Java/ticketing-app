@@ -1,7 +1,7 @@
 using {ticketing.app.demo as my} from '../db/schema';
 
 
-@requires: 'authenticated-user'
+@requires: ['Supporter', 'Admin', 'Viewer']
 service ProcessorService {
 
     @readonly
@@ -11,10 +11,10 @@ service ProcessorService {
     @restrict: [
         { grant: ['READ', 'CREATE'], to: 'Viewer', where: 'createdBy = $user' },
         { grant: ['READ','CREATE','UPDATE', 'DELETE'], to: 'Admin' },
-        {grant: ['READ', 'CREATE', 'UPDATE'], to: 'Supporter'}
+        { grant: ['READ', 'CREATE', 'UPDATE'], to: 'Supporter'}
     ]
     entity Tickets as projection on my.Tickets {
-        ID @(restrict.to: ['Admin','Supporter']),
+        ID,
         title,
         status,
         description,
@@ -27,7 +27,7 @@ service ProcessorService {
 
     @restrict: [
         { grant: 'READ', to: ['Viewer','Admin', 'Supporter'] },
-        { grant: ['CREATE','UPDATE'], to: ['Admin', 'Supporter'] }
+        { grant: ['CREATE','UPDATE', 'DELETE'], to: ['Admin', 'Supporter']},
     ]
     entity Answers as projection on my.Answers;
 }

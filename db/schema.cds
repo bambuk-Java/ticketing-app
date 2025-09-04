@@ -18,14 +18,20 @@ entity Answers : cuid, managed {
 }
 
 entity Users : cuid, managed {
-  userName : String @restrict.to: ['Admin', 'Supporter'];
-  email    : EmailAddress @restrict.to: ['Admin', 'Supporter'];
+  userName : String;
+  email    : EmailAddress;
   tickets  : Association to many Tickets on tickets.user = $self ;
 }
 
 entity Status : CodeList {
   key code     : String;
   criticality  : Integer;
+}
+
+@odata.singleton @cds.persistence.skip
+entity Configuration {
+    key ID: String;
+    isAdmin : Boolean;
 }
 
 type EmailAddress : String;
