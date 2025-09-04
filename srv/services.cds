@@ -30,4 +30,7 @@ service ProcessorService {
         { grant: ['CREATE','UPDATE', 'DELETE'], to: ['Admin', 'Supporter']},
     ]
     entity Answers as projection on my.Answers;
+
+    @readonly
+    entity Configuration as projection on my.Configuration;
 }

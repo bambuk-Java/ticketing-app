@@ -2,7 +2,8 @@ using ProcessorService as service from '../../srv/services';
 using from '../../db/schema';
 
 annotate service.Tickets with @(
-    UI.DeleteHidden : { $edmJson: { $Not: { $Path: '/ProcessorService.EntityContainer/Configuration/isAdmin' } } },
+    UI.DeleteHidden : { $edmJson: { $Not: { $Path: '/Configuration/isAdmin' } } },
+    UI.UpdateHidden : { $edmJson: { $Not: { $Path: '/Configuration/isAdmin' } } },
 
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
@@ -113,6 +114,7 @@ annotate service.Tickets with {
                 $Type : 'Common.ValueListParameterDisplayOnly',
                 ValueListProperty : 'email',
             },
+            
         ],
     }
 };
