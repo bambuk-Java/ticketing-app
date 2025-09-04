@@ -3,7 +3,7 @@ using from '../../db/schema';
 
 annotate service.Tickets with @(
     UI.DeleteHidden : { $edmJson: { $Not: { $Path: '/Configuration/isAdmin' } } },
-    UI.UpdateHidden : { $edmJson: { $Not: { $Path: '/Configuration/isAdmin' } } },
+    UI.UpdateHidden : { $edmJson: { $Not: { $Or : [ {$Path: '/Configuration/isAdmin'}, {$Path: '/Configuration/isSupporter'} ] } } },
 
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
@@ -117,6 +117,10 @@ annotate service.Tickets with {
             
         ],
     }
+};
+
+annotate service.Tickets with @Capabilities.DeleteRestrictions : {
+  Deletable : { $edmJson : { $Path : '/Configuration/isAdmin' } }
 };
 
 annotate service.Tickets with {

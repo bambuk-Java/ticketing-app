@@ -1,6 +1,7 @@
 using {ticketing.app.demo as my} from '../db/schema';
 
 
+
 @requires: ['Supporter', 'Admin', 'Viewer']
 service ProcessorService {
 
@@ -30,7 +31,7 @@ service ProcessorService {
         { grant: ['CREATE','UPDATE', 'DELETE'], to: ['Admin', 'Supporter']},
     ]
     entity Answers as projection on my.Answers;
-
-    @readonly
+   @readonly
     entity Configuration as projection on my.Configuration;
+    
 }

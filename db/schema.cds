@@ -32,6 +32,7 @@ entity Status : CodeList {
 entity Configuration {
     key ID: String;
     isAdmin : Boolean;
+    isSupporter : Boolean;
 }
 
 type EmailAddress : String;
